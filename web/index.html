@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Omal Perera">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.png" type="image/x-icon">
+
+    <title>CityWave - Dashboard</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/small-business.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/series-label.js"></script>
+
+    <script type="text/javascript" src="http://www.highcharts.com/samples/data/three-series-1000-points.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="./charts/chartStyles.js"></script>
+    <script type="text/javascript" src="./charts/temperatureRtCmb.js"></script>
+    <script type="text/javascript" src="./charts/gasCompositionRtCmb.js"></script>
+    <script type="text/javascript" src="./charts/vehicularSpeedRtParlimentJunction.js"></script>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #2f4050; border-color:#2f4050;">
+      <div class="container">
+        <a class="navbar-brand" href="#">CityWave</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container" style="">
+      <div class="py-2"></div>
+
+      <!-- Content Row -->
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body"  style="padding:0px">
+              <div id="temperatureRtCmb"></div>
+              <!--h2 class="card-title">Card One</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p-->
+            </div>
+            <!--div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div-->
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body" style="padding:0px">
+              <div id="gasCompositionRtCmb"></div>
+              <!--h2 class="card-title">Card Two</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p-->
+            </div>
+            <!--div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div-->
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body" style="padding:0px">
+              <div id="vehicularSpeedRtParlimentJunction"></div>
+              <!--h2 class="card-title">Card Two</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p-->
+            </div>
+            <!--div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div-->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body"  style="padding:0px">
+              <div id="vehicularSpeedRtParlimentJunction1"></div>
+              <!--h2 class="card-title">Card One</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p-->
+            </div>
+            <!--div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div-->
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body" style="padding:0px">
+              <div id="gasCompositionRtCmb111"></div>
+              <!--h2 class="card-title">Card Two</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p-->
+            </div>
+            <!--div class="card-footer">
+              <a href="#" class="btn btn-primary">More Info</a>
+            </div-->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--footer class="py-1" style="background-color: #2f4050; border-color:#2f4050;">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; CityWave 2018</p>
+      </div>
+    </footer-->
+
+    <!--script src="./js/jquery.min.js"></script-->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

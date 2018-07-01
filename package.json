@@ -1,0 +1,17 @@
+{
+  "name": "realtime-dashboard",
+  "version": "1.0.0",
+  "description": "Realtime dashboard for Smartcity framework",
+  "main": "dashboard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Omal Perera",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongo-oplog-watch": "^1.0.3",
+    "nodemon": "^1.14.3",
+    "socket.io": "^2.0.4"
+  }
+}

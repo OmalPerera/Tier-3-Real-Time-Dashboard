@@ -1,0 +1,209 @@
+
+  var socket = io();
+  var series;
+  Highcharts.setOptions({
+      global: {
+          useUTC: false
+      },
+      lang: {
+          thousandsSep: ','
+      }
+  });
+
+  /*DIfferent chart types availabale at https://www.highcharts.com/docs/chart-and-series-types/x-range-series*/
+  chart = new Highcharts.Chart({
+      chart: {
+          renderTo: 'container',
+          type: 'spline',
+          animation: Highcharts.svg, // don't animate in old IE
+          marginRight: 10,
+      },
+      title: {
+          text: 'Smart City Dashboard - Vehicular Speed variations of cities in NewYork'
+      },
+      xAxis: {
+          type: 'datetime',
+          tickPixelInterval: 360,
+          title: {
+              text: 'Time',
+              style: {
+                  fontWeight: 'bold'
+              }
+          }
+      },
+      yAxis: {
+          title: {
+              text: 'Speed km/h',
+              style: {
+                  fontWeight: 'bold'
+              }
+          },
+          plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+          }]
+      },
+      tooltip: {
+          formatter: function () {
+              return '<b>' + this.series.name + '</b><br/>' +
+                  Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + Highcharts.numberFormat(this.y, 0);
+          }
+      },
+      legend: {
+          enabled: true
+      },
+      exporting: {
+          enabled: true
+      },
+      series: [
+          {
+              name: 'AverageSpeeds',
+              color: '#00703C',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -4; i <= 0; i += 1) {
+                    data.push({
+                          x: time + i * 1000,
+                          y: 0
+                        });
+                      }
+                  return data;
+              }())
+          }
+          /*
+          {
+              name: 'Trek',
+              color: '#00703C',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -3; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 0
+                      });
+                  }
+                  return data;
+              }())
+          },
+
+          {
+              name: 'Giant',
+              color: '#9400D3',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -3; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 0
+                      });
+                  }
+                  return data;
+              }())
+          },
+
+          {
+              name: 'Jett',
+              color: '#318CE7',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -3; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 0
+                      });
+                  }
+                  return data;
+              }())
+          },
+
+          {
+              name: 'Cannondale',
+              color: '#CC0000',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -3; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 0
+                      });
+                  }
+                  return data;
+              }())
+          },
+
+          {
+              name: 'Surly',
+              color: '#FF7E00',
+              data: (function () {
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
+                  for (i = -3; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 0
+                      });
+                  }
+                  return data;
+              }())
+          }*/
+      ]
+  });
+
+  socket.on('aggregator-message', function(data){
+      if(typeof(data) !== "object"){
+          data = JSON.parse(data);
+      }
+
+      console.log("====================");
+      console.log(data);
+      console.log("--------------------")
+
+      chart.series[0].addPoint([(new Date()).getTime(), data.temperature], true, true);
+      chart.redraw();
+
+      /*
+      if (data.bike_name === 'Trek') {
+          chart.series[0].addPoint([(new Date()).getTime(), data.total], true, true);
+          chart.redraw();
+      }
+
+      if (data.bike_name === 'Giant') {
+          chart.series[1].addPoint([(new Date()).getTime(), data.total], true, true);
+          chart.redraw();
+      }
+
+      if (data.bike_name === 'Jett') {
+          chart.series[2].addPoint([(new Date()).getTime(), data.total], true, true);
+          chart.redraw();
+      }
+
+      if (data.bike_name === 'Cannondale') {
+          chart.series[3].addPoint([(new Date()).getTime(), data.total], true, true);
+          chart.redraw();
+      }
+
+      if (data.bike_name === 'Surly') {
+          chart.series[4].addPoint([(new Date()).getTime(), data.total], true, true);
+          chart.redraw();
+      }
+      */
+
+  });
